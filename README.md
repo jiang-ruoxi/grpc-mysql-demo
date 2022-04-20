@@ -1,5 +1,5 @@
 # grpc-mysql-demo
-简单实现grpc基于mysql的增删改查操作
+基于protobuf的RPC实现简单mysql的增删改查操作
 
 ### 运行前准备
 修改service目录下的goods_service.go 文件，将数据库的配置改成你自己的配置信息
