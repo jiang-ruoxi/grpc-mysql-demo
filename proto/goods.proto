@@ -1,0 +1,76 @@
+//定义proto语法版本，这里指定使用proto3版本
+syntax = "proto3";
+
+//这里定义个包名
+package grpc.goods;
+
+//go需要增加这个选项，否则会报错；值使用分号分割，前者表示生成*.pb.go文件目录，会自动创建，这里指定当前目录中的proto目录；后者标识生成go文件里的包名，最后和当前目录名一致
+option go_package = "./proto;proto";
+
+message Goods {
+  int64 id = 1;
+  string goods_name = 2;
+  int64 price = 3;
+}
+
+//新增单条数据
+message CreateGoodsRequest{
+  string version = 1;
+  Goods goods = 2;
+}
+
+message CreatGoodsResponse{
+  string version = 1;
+  int64 id = 2;
+}
+
+//查询单条
+message GetInfoRequest{
+  string version = 1;
+  int64 id = 2;
+}
+
+message GetInfoResponse{
+  string version = 1;
+  Goods goods = 2;
+}
+
+//更新单条记录
+message UpdateGoodsRequest {
+  string version = 1;
+  Goods goods = 2;
+}
+
+message UpdateGoodsResponse{
+  string  version = 1;
+  int64  updated = 2;
+}
+
+//删除单条记录
+message DeleteGoodsRequest{
+  string version = 1;
+  int64  id = 2;
+}
+
+message DeleteGoodsResponse {
+  string version = 1;
+  int64  deleted = 2;
+}
+
+//获取全部记录
+message GetListGoodsRequest{
+  string version = 1;
+}
+
+message GetListGoodsResponse{
+  string version = 1;
+  repeated Goods goodsList = 2;
+}
+
+service GoodsService{
+  rpc CreateGoods(CreateGoodsRequest) returns (CreatGoodsResponse){};
+  rpc GetGoodsInfo(GetInfoRequest) returns (GetInfoResponse){};
+  rpc UpdateGoods(UpdateGoodsRequest) returns(UpdateGoodsResponse){};
+  rpc DeleteGoods(DeleteGoodsRequest) returns (DeleteGoodsResponse){};
+  rpc GetListGoods(GetListGoodsRequest) returns (GetListGoodsResponse){};
+}
